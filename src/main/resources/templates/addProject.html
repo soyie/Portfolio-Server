@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Project</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+<h2>Add Project</h2>
+<form th:action="@{/add}" th:object="${project}" method="post" enctype="multipart/form-data">
+    <label>Name: <input class="form-control" type="text" th:field="*{name}" /></label><br/>
+    <label>Type: <select class="custom-select" id="type" name="type" required>
+        <option th:each="projectType : ${projectTypes}" th:value="${projectType}" th:text="${projectType}"></option>
+    </select><br></label><br/>
+    <label>GitHub: <input class="form-control" type="text" th:field="*{gitHub}" /></label><br/>
+    <label>Test Link: <input class="form-control"  type="text" th:field="*{testLink}" /></label><br/>
+    <label>Description: <textarea class="form-control" id="description" name="description" rows="4" cols="50"></textarea><br>
+    </label><br/>
+    <label>Image: <input class="custom-file-label" type="file" name="image" /></label><br/>
+
+    <label>Other: <input class="custom-file-label" type="file" name="images" multiple/></label><br/>
+    <input type="submit" class="btn btn-primary" value="Add"/>
+</form>
+<a href="/" class="btn btn-danger" >Back to List</a>
+</body>
+</html>
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Add Project</title>-->
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">-->
+
+<!--</head>-->
+<!--<body>-->
+<!--<h2>Add Project</h2>-->
+<!--<form th:action="@{/add}" th:object="${project}" method="post" enctype="multipart/form-data">-->
+<!--    &lt;!&ndash;    <label> <input class="form-control" type="text" th:field="*{name}" /></label><br/>&ndash;&gt;-->
+<!--    &lt;!&ndash;    <label>Type: <select id="type" name="type" required>&ndash;&gt;-->
+<!--    &lt;!&ndash;        <option th:each="projectType : ${projectTypes}" th:value="${projectType}" th:text="${projectType}"></option>&ndash;&gt;-->
+<!--    &lt;!&ndash;    </select><br></label><br/>&ndash;&gt;-->
+<!--    &lt;!&ndash;    <label>GitHub: <input class="form-control" type="text"  /></label><br/>&ndash;&gt;-->
+<!--    &lt;!&ndash;    <label>Test Link: <input class="form-control" type="text" /></label><br/>&ndash;&gt;-->
+<!--    &lt;!&ndash;    <label>Views: <input type="number" th:field="*{views}" /></label><br/>&ndash;&gt;-->
+<!--    &lt;!&ndash;    <label>Description: <textarea class="form-control" id="description" name="description" rows="4" cols="50"></textarea><br>&ndash;&gt;-->
+<!--    &lt;!&ndash;    </label><br/>&ndash;&gt;-->
+<!--    &lt;!&ndash;    <label>Image: <input type="file" name="image" /></label><br/>&ndash;&gt;-->
+
+<!--    <div class="col-md-4 mb-3">-->
+<!--        <label for="name">Name:</label>-->
+<!--        <input type="text" class="form-control" id="name" th:field="*{name}"  placeholder="Project Name"required>-->
+<!--        <div class="valid-feedback">-->
+<!--            Looks good!-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--        <select class="custom-select" id="type" name="type" required>-->
+<!--            <option th:each="projectType : ${projectTypes}" th:value="${projectType}" th:text="${projectType}"></option>-->
+<!--        </select>-->
+<!--    </div>-->
+<!--    <div class="col-md-4 mb-3">-->
+<!--        <label for="github">GitHub: </label>-->
+<!--        <input type="link" class="form-control" id="github" th:field="*{gitHub}" placeholder="github" required>-->
+<!--    </div>-->
+<!--    <div class="col-md-4 mb-3">-->
+<!--        <label for="testlink">Test Link</label>-->
+<!--        <input type="link" class="form-control" id="testlink" placeholder="Test link" th:field="*{testLink}"  required>-->
+
+<!--    </div>-->
+
+
+<!--    <div class="custom-file">-->
+<!--        <input type="file" class="custom-file-input" name="image" id="file" required>-->
+<!--        <label class="custom-file-label" for="file">Choose file...</label>-->
+<!--    </div>-->
+
+<!--    <div class="form-group">-->
+<!--        <label for="description">Description</label>-->
+<!--        <textarea class="form-control" id="description" name="description" rows="4" cols="50"></textarea>-->
+<!--    </div>-->
+<!--    <input class="btn btn-primary" type="submit" value="Add"/>-->
+<!--</form>-->
+<!--<a class="btn btn-danger" href="/">Back to List</a>-->
+<!--</body>-->
+<!--</html>-->
