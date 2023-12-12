@@ -8,17 +8,17 @@
 <body>
 <h2>Add Project</h2>
 <form th:action="@{/add}" th:object="${project}" method="post" enctype="multipart/form-data">
-    <label>Name: <input class="form-control" type="text" th:field="*{name}" /></label><br/>
-    <label>Type: <select class="custom-select" id="type" name="type" required>
+    <label class="form-label">Name: <input class="form-control" type="text" th:field="*{name}" /></label><br/>
+    <label class="form-label">Type: <select class="custom-select" id="type" name="type" required>
         <option th:each="projectType : ${projectTypes}" th:value="${projectType}" th:text="${projectType}"></option>
     </select><br></label><br/>
-    <label>GitHub: <input class="form-control" type="text" th:field="*{gitHub}" /></label><br/>
-    <label>Test Link: <input class="form-control"  type="text" th:field="*{testLink}" /></label><br/>
-    <label>Description: <textarea class="form-control" id="description" name="description" rows="4" cols="50"></textarea><br>
+    <label class="form-label">GitHub: <input class="form-control" type="text" th:field="*{gitHub}" /></label><br/>
+    <label class="form-label">Test Link: <input class="form-control"  type="text" th:field="*{testLink}" /></label><br/>
+    <label class="form-label">Description: <textarea class="form-control" id="description" name="description" rows="4" cols="50"></textarea><br>
     </label><br/>
-    <label>Image: <input class="custom-file-label" type="file" name="image" /></label><br/>
+    <label class="form-label">Image: <input class="form-control" type="file" name="image" /></label><br/>
 
-    <label>Other: <input class="custom-file-label" type="file" name="images" multiple/></label><br/>
+    <label class="form-label">Other pictures: <input class="form-control" type="file" name="images" multiple/></label><br/>
     <input type="submit" class="btn btn-primary" value="Add"/>
 </form>
 <a href="/" class="btn btn-danger" >Back to List</a>

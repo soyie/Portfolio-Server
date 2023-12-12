@@ -29,6 +29,11 @@ public class ProjectController {
         model.addAttribute("projects", db.getAllImages());
         return "projectList";
     }
+    @GetMapping("/messages")
+    public String listMessages(Model model) {
+        model.addAttribute("projects", db.getAllMessages());
+        return "projectList";
+    }
 
     @GetMapping("/add")
     public String showAddForm(Model model) {

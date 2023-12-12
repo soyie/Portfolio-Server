@@ -1,8 +1,11 @@
 package com.fullstackApp.fullStackApp.databases;
 
 import com.fullstackApp.fullStackApp.ManageClientUser.ProjectData;
+import com.fullstackApp.fullStackApp.ManageClientUser.MessagesList;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.*;
 
 public class BudgetBossDataBase {
@@ -178,6 +181,47 @@ public class BudgetBossDataBase {
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
 
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Object getAllMessages() {
+        String sql = "SELECT * FROM messages;";
+
+        try (Connection conn = DriverManager.getConnection(DATABASE_URL);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    MessagesList imageModel = new MessagesList();
+
+                    imageModel.setSenderEmail(rs.getString("responseMail"));
+                    imageModel.setSender(rs.getString("responseName"));
+                    imageModel.setMessage(rs.getString("message"));
+                    imageModel.setDate(LocalDate.parse(rs.getString("Date")));
+                    imageModel.setTime(LocalTime.parse(rs.getString("Time")));
+                    return imageModel;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static void insertMessage(MessagesList imageModel) {
+        String sql = "INSERT INTO messages(responseMail, responseName, message, Date, Time) VALUES (?, ?, ?, ?, ?);";
+
+        try (Connection conn = DriverManager.getConnection(DATABASE_URL);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, imageModel.getSenderEmail());
+            pstmt.setString(2, imageModel.getSender());
+            pstmt.setString(3, imageModel.getMessage());
+            pstmt.setString(4, String.valueOf(imageModel.getDate()));
+            pstmt.setString(5, String.valueOf(imageModel.getTime()));
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

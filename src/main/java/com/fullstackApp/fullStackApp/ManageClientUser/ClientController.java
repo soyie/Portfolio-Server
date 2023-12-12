@@ -21,7 +21,6 @@ public class ClientController {
     BudgetBossDataBase db = new BudgetBossDataBase();
 
     private final AtomicLong counter = new AtomicLong();
-    @CrossOrigin(origins = "*")
     @GetMapping("/greeting")
     public List<ProjectData> greeting() {
         HttpHeaders headers = new HttpHeaders();

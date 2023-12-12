@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Messages</title>
+
+  <style>
+
+  </style>
+</head>
+<body>
+<h2>Messages</h2>
+<div id="header"></div>
+<div id="body">
+    <div th:each="project : ${messages}">
+        <p th:text="${messages.sender}"></p>
+        <p th:text="${messages.respond}"></p>
+        <p th:text="${messages.message}"></p>
+        <p th:text="${messages.date}"></p>
+        <p th:text="${messages.time}"></p>
+    </div>
+</div>
+
+</body>
+</html>
