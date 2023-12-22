@@ -1,5 +1,6 @@
 package com.fullstackApp.fullStackApp.ManageClientUser;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.util.StreamUtils;
 
@@ -50,6 +51,7 @@ public class ByteToMultipartFile implements MultipartFile {
     }
 
     @Override
+    @JsonIgnore
     public InputStream getInputStream() throws IOException {
         return new ByteArrayInputStream(bytes);
     }

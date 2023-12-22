@@ -1,16 +1,9 @@
 package com.fullstackApp.fullStackApp.ManageClientUser;
 
-import org.springframework.web.multipart.MultipartFile;
-
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
 public class ProjectData {
-
-//    private static int nextId = 0;
 
     int id;
     private List<byte[]> images;
@@ -167,4 +160,6 @@ public class ProjectData {
                 ", base64Image='" + base64Image + '\'' +
                 '}';
     }
+
+
 }

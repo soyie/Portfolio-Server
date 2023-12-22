@@ -21,7 +21,7 @@ public class ClientController {
     BudgetBossDataBase db = new BudgetBossDataBase();
 
     private final AtomicLong counter = new AtomicLong();
-    @GetMapping("/greeting")
+    @GetMapping("/allApps")
     public List<ProjectData> greeting() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_JPEG);
@@ -29,7 +29,7 @@ public class ClientController {
     }
 
     @CrossOrigin(origins = "*")
-    @PostMapping("/new-account")
+    @PostMapping("/SendMessage")
     public String greetingFromClient(@RequestBody String user) throws SQLException {
 //        System.out.println(user);
 //        NewAccount acc = new NewAccount();

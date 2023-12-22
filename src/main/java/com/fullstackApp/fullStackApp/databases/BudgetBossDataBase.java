@@ -1,7 +1,12 @@
 package com.fullstackApp.fullStackApp.databases;
 
+import com.fullstackApp.fullStackApp.ManageClientUser.ByteToMultipartFile;
 import com.fullstackApp.fullStackApp.ManageClientUser.ProjectData;
 import com.fullstackApp.fullStackApp.ManageClientUser.MessagesList;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -59,28 +64,28 @@ public class BudgetBossDataBase {
 
 
 
-    public static void insertImage(ProjectData imageModel, List<byte[]> project) {
-        String sql = "INSERT INTO images (image, name, type, gitHub, testLink, views, description, projectId, image1, image2, image3) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-
-        try (Connection conn = DriverManager.getConnection(DATABASE_URL);
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setBytes(1, imageModel.getImage());
-            pstmt.setString(2, imageModel.getName());
-            pstmt.setString(3, imageModel.getType());
-            pstmt.setString(4, imageModel.getGitHub());
-            pstmt.setString(5, imageModel.getTestLink());
-            pstmt.setInt(6, imageModel.getViews());
-            pstmt.setString(7, imageModel.getDescription());
-            pstmt.setString(8, String.valueOf(imageModel.getUuid()));
-            pstmt.setBytes(9, project.get(0));
-            pstmt.setBytes(10, project.get(1));
-            pstmt.setBytes(11, project.get(2));
-
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+//    public static void insertImage(ProjectData imageModel, List<byte[]> project) {
+//        String sql = "INSERT INTO images (image, name, type, gitHub, testLink, views, description, projectId, image1, image2, image3) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+//
+//        try (Connection conn = DriverManager.getConnection(DATABASE_URL);
+//             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+//            pstmt.setBytes(1, imageModel.getImage());
+//            pstmt.setString(2, imageModel.getName());
+//            pstmt.setString(3, imageModel.getType());
+//            pstmt.setString(4, imageModel.getGitHub());
+//            pstmt.setString(5, imageModel.getTestLink());
+//            pstmt.setInt(6, imageModel.getViews());
+//            pstmt.setString(7, imageModel.getDescription());
+//            pstmt.setString(8, String.valueOf(imageModel.getUuid()));
+//            pstmt.setBytes(9, project.get(0));
+//            pstmt.setBytes(10, project.get(1));
+//            pstmt.setBytes(11, project.get(2));
+//
+//            pstmt.executeUpdate();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     public ProjectData getImageByName(Long name) {
         String sql = "SELECT * FROM images WHERE id = ?;";
@@ -130,6 +135,8 @@ public class BudgetBossDataBase {
             while (rs.next()) {
                 ProjectData imageModel = new ProjectData();
                 imageModel.setId(Integer.parseInt(rs.getString("id")));
+                
+//                MultipartFile multipartFile = new MockMultipartFile("file", "mainPicture.jpg", "image/jpeg", rs.getBytes("image"));
                 imageModel.setImage(rs.getBytes("image"));
                 imageModel.setName(rs.getString("name"));
                 imageModel.setType(rs.getString("type"));
@@ -154,25 +161,25 @@ public class BudgetBossDataBase {
 
 
 
-    public static void updateImage(int id, ProjectData updatedImageModel) {
-        String sql = "UPDATE images SET image=?, name=?, type=?, gitHub=?, testLink=?, views=?, description=? WHERE id=?;";
-
-        try (Connection conn = DriverManager.getConnection(DATABASE_URL);
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setBytes(1, updatedImageModel.getImage());
-            pstmt.setString(2, updatedImageModel.getName());
-            pstmt.setString(3, updatedImageModel.getType());
-            pstmt.setString(4, updatedImageModel.getGitHub());
-            pstmt.setString(5, updatedImageModel.getTestLink());
-            pstmt.setInt(6, updatedImageModel.getViews());
-            pstmt.setString(7, updatedImageModel.getDescription());
-            pstmt.setInt(8, id);
-
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+//    public static void updateImage(int id, ProjectData updatedImageModel) {
+//        String sql = "UPDATE images SET image=?, name=?, type=?, gitHub=?, testLink=?, views=?, description=? WHERE id=?;";
+//
+//        try (Connection conn = DriverManager.getConnection(DATABASE_URL);
+//             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+//            pstmt.setBytes(1, updatedImageModel.getImage());
+//            pstmt.setString(2, updatedImageModel.getName());
+//            pstmt.setString(3, updatedImageModel.getType());
+//            pstmt.setString(4, updatedImageModel.getGitHub());
+//            pstmt.setString(5, updatedImageModel.getTestLink());
+//            pstmt.setInt(6, updatedImageModel.getViews());
+//            pstmt.setString(7, updatedImageModel.getDescription());
+//            pstmt.setInt(8, id);
+//
+//            pstmt.executeUpdate();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     public static void deleteImage(int id) {
         String sql = "DELETE FROM images WHERE id=?;";
