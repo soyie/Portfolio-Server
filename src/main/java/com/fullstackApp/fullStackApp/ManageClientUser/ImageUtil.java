@@ -10,7 +10,7 @@ public class ImageUtil {
 
     public static String convertImageToBase64(BufferedImage image) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write(image, "png", baos); // You can change the format if needed
+        ImageIO.write(image, "png", baos);
         byte[] imageBytes = baos.toByteArray();
         return Base64.getEncoder().encodeToString(imageBytes);
     }

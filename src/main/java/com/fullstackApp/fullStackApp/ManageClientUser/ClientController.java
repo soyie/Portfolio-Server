@@ -8,11 +8,6 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fullstackApp.fullStackApp.databases.BudgetBossDataBase;
 import kong.unirest.json.JSONObject;
 import org.springframework.http.HttpHeaders;
@@ -36,17 +31,13 @@ public class ClientController {
 
     @PostMapping("/SendMessage")
     public String[] greetingFromClient(@RequestBody String user) throws SQLException {
-        System.out.println(user);
         JSONObject jsonObject = new JSONObject(user);
-        System.out.println("Data from js "+jsonObject);
-//        new MessagesList( ,);
-//        System.out.println(jsonObject.get("sender").toString());
         messages.setSender(jsonObject.get("sender").toString());
         messages.setSenderEmail(jsonObject.get("senderEmail").toString());
         messages.setMessage(jsonObject.get("message").toString());
         messages.setDate(LocalDate.now());
         messages.setTime( LocalTime.now());
         db.insertMessage(messages);
-        return new String[]{"hi", "Not Created"};
+        return new String[]{"Response", "Thank you for sending a message I promise to get back to you immediately."};
     }
 }

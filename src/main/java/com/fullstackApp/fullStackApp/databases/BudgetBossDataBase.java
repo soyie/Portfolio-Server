@@ -2,7 +2,6 @@ package com.fullstackApp.fullStackApp.databases;
 
 import com.fullstackApp.fullStackApp.ManageClientUser.ProjectData;
 import com.fullstackApp.fullStackApp.ManageClientUser.MessagesList;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -10,7 +9,6 @@ import java.time.LocalTime;
 import java.util.*;
 
 public class BudgetBossDataBase {
-    public String sql;
 
     public static final String DATABASE_URL = "jdbc:sqlite:myprojects.db";
     public List<byte[]> imagesList = new ArrayList<byte[]>();
