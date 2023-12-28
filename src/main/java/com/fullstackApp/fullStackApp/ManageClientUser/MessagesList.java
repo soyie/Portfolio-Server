@@ -3,6 +3,7 @@ package com.fullstackApp.fullStackApp.ManageClientUser;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+//this works for messages
 public class MessagesList {
     String Sender;
     String SenderEmail;
@@ -22,6 +23,7 @@ public class MessagesList {
     }
 
     public String getSender() {
+        System.out.println(Sender);
         return Sender;
     }
 
@@ -30,6 +32,7 @@ public class MessagesList {
     }
 
     public String getSenderEmail() {
+        System.out.println(SenderEmail);
         return SenderEmail;
     }
 
@@ -38,6 +41,7 @@ public class MessagesList {
     }
 
     public String getMessage() {
+        System.out.println(Message);
         return Message;
     }
 
@@ -46,6 +50,7 @@ public class MessagesList {
     }
 
     public LocalDate getDate() {
+        System.out.println(Date);
         return Date;
     }
 
@@ -54,6 +59,7 @@ public class MessagesList {
     }
 
     public LocalTime getTime() {
+        System.out.println(Time);
         return Time;
     }
 

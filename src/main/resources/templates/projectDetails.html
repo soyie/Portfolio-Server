@@ -13,7 +13,7 @@
     <option th:each="projectType : ${projectTypes}" th:value="${projectType}" th:text="${projectType}" ></option>
   </select><br></label><br/>
   <label>GitHub: <input type="text" th:field="*{gitHub}" /></label><br/>
-  <label>Test Link: <input type="text" th:field="*{testLink}" /></label><br/>
+  <label>Test Link: <input type="text" th:field="*{Link}" /></label><br/>
   <label>Description: <textarea id="description" name="description" rows="4" cols="50" th:field="*{description}"></textarea><br>
   </label><br/>
   <label>Image: <input type="file" name="image" /></label><br/>

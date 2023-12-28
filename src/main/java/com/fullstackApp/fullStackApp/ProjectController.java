@@ -19,22 +19,16 @@ import java.util.*;
 @Controller
 public class ProjectController {
     BudgetBossDataBase db = new BudgetBossDataBase();
-    List<String> projectPics = new ArrayList<String>();
-    List<byte[]> files = new ArrayList<byte[]>();
     ProjectData project = new ProjectData();
 
-
+    //getting all the projects from the database to the Server IU for editing, adding and reading and deleting
     @GetMapping("/")
     public String listProjects(Model model) {
         model.addAttribute("projects", db.getAllImages());
         return "projectList";
     }
-    @GetMapping("/messages")
-    public String listMessages(Model model) {
-        model.addAttribute("projects", db.getAllMessages());
-        return "projectList";
-    }
 
+    //this is used when adding a new project these are the types of projects I can do
     @GetMapping("/add")
     public String showAddForm(Model model) {
         List<String> projectTypes = Arrays.asList("Web Development", "Mobile Development", "Machine Learning", "Systems Integration", "Command Line Interface");  // Replace with your actual project types
@@ -42,36 +36,34 @@ public class ProjectController {
         model.addAttribute("project", new ProjectData());
         return "addProject";
     }
+    //Posting a project to the database
+    @PostMapping("/add")
+    public String addProject(@RequestParam("image") MultipartFile file,
+                             @RequestParam("name") String itemName,
+                             @RequestParam("type") String type,
+                             @RequestParam("description") String description,
+                             @RequestParam("gitHub") String github,
+                             @RequestParam("Link") String link,
+                             @RequestParam("images") MultipartFile[] images,
+                             Model model) throws IOException {
 
-//    @PostMapping("/add")
-//    public String addProject(@RequestParam("image") MultipartFile file,
-//                             @RequestParam("name") String itemName,
-//                             @RequestParam("type") String type,
-//                             @RequestParam("description") String description,
-//                             @RequestParam("gitHub") String github,
-//                             @RequestParam("testLink") String link,
-//                             @RequestParam("images") MultipartFile[] images,
-//                             Model model) throws IOException {
-//        UUID proj = UUID.randomUUID();
-//
-//        if (!file.isEmpty()) {
-//            project.setImage(file.getBytes());
-//        }
-//        for (int i = 0; i <= 2; i++) {
-//            files.add(images[i].getBytes());
-//        }
-//        project.setName(itemName);
-//        project.setType(type);
-//        project.setTestLink(link);
-//        project.setGitHub(github);
-//        project.setDescription(description);
-//
-//        project.setUuid(proj);
-//        project.setImageList(files);
-//
-//        BudgetBossDataBase.insertImage(project, files);
-//        return "redirect:/";
-//    }
+        if (!file.isEmpty()) {
+            project.setImage(file.getBytes());
+        }
+        project.setName(itemName);
+        project.setType(type);
+        project.setLink(link);
+        project.setGitHub(github);
+        project.setDescription(description);
+        project.setScreen1(images[0].getBytes());
+        project.setScreen2(images[1].getBytes());
+        project.setScreen3(images[2].getBytes());
+        project.setProjectUID(UUID.randomUUID());
+
+        db.insertImage(project);
+
+        return "redirect:/";
+    }
 
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable int id, Model model) {
@@ -82,47 +74,46 @@ public class ProjectController {
         return "editProject";
     }
 
-//    @GetMapping("/project/{projectId}")
-//    public String showProject(@PathVariable long projectId, Model model) {
-//        ProjectData projectData = db.getImageByName(projectId);
-//
-//        if (projectData != null) {
-//            // Convert byte[] to Base64-encoded string
-//            String base64Image = Base64.getEncoder().encodeToString(projectData.getImage());
-//            projectData.setBase64Image(base64Image);
-//
-//            model.addAttribute("projectData", projectData);
-//            return "projectDetails";
-//        } else {
-//            // Handle case where project is not found
-//            return "error";
-//        }
-//    }
+    //showing a project 1 by 1
+    @GetMapping("/project/{projectId}")
+    public String showProject(@PathVariable long projectId, Model model) {
+        ProjectData projectData = db.getImageByName(projectId);
 
-//    @PostMapping("/edit/{id}")
-//    public String editProject(@PathVariable int id,
-//                              @RequestPart("image") MultipartFile image,
-//                              @RequestPart("name") String itemName,
-//                              @RequestPart("type") String type,
-//                              @RequestPart("description") String description,
-//                              @RequestPart("gitHub") String github,
-//                              @RequestPart("testLink") String link) throws IOException {
-//        ProjectData project = getProjectById(id);
-//        if (project != null) {
-//            if (!image.isEmpty()) {
-//                project.setImage(image.getBytes());
-//            }
-//            System.out.println(project);
-//            project.setName(itemName);
-//            project.setType(type);
-//            project.setTestLink(link);
-//            project.setGitHub(github);
-//            project.setDescription(description);
-//            BudgetBossDataBase.updateImage(id, project);
-//        }
-//        return "redirect:/";
-//    }
+        if (projectData != null) {
+            String base64Image = Base64.getEncoder().encodeToString(projectData.getImage());
+            projectData.setBase64Image(base64Image);
 
+            model.addAttribute("projectData", projectData);
+            return "projectDetails";
+        } else {
+            // Handle case where project is not found
+            return "error";
+        }
+    }
+    //used for editing projects
+    @PostMapping("/edit/{id}")
+    public String editProject(@PathVariable int id,
+                              @RequestPart("image") MultipartFile image,
+                              @RequestPart("name") String itemName,
+                              @RequestPart("type") String type,
+                              @RequestPart("description") String description,
+                              @RequestPart("gitHub") String github,
+                              @RequestPart("testLink") String link) throws IOException {
+        ProjectData project = getProjectById(id);
+        if (project != null) {
+            if (!image.isEmpty()) {
+                project.setImage(image.getBytes());
+            }
+            project.setName(itemName);
+            project.setType(type);
+            project.setLink(link);
+            project.setGitHub(github);
+            project.setDescription(description);
+            BudgetBossDataBase.updateImage(id, project);
+        }
+        return "redirect:/";
+    }
+    //delete project
     @GetMapping("/delete/{id}")
     public String deleteProject(@PathVariable int id) {
         ProjectData project = getProjectById(id);
@@ -132,29 +123,42 @@ public class ProjectController {
         return "redirect:/";
     }
 
-//    @GetMapping("/info/{id}")
-//    public String showProject(@PathVariable Long id, Model model) throws IOException {
-//        List<String> projectPics = new ArrayList<String>();
-//        ProjectData project = getProjectById(id);
-//        byte[] imageBytes = project.getImage();
-//        for (int i = 0; i <= 2; i++) {
-//            System.out.println(db.imagesList.get(i));
-//            BufferedImage images = convertBytesToImage(db.imagesList.get(i));
-//            String base64Images = ImageUtil.convertImageToBase64(images);
-//            projectPics.add(base64Images);
-//        }
-//
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(MediaType.IMAGE_JPEG);
-//        headers.setContentLength(imageBytes.length);
-//        BufferedImage image = convertBytesToImage(imageBytes);
-//        String base64Image = ImageUtil.convertImageToBase64(image);
-//
-//        model.addAttribute("image", base64Image);
-//        model.addAttribute("images", projectPics);
-//        model.addAttribute("project", project);
-//        return "project";
-//    }
+    @GetMapping("/info/{id}")
+    public String showProject(@PathVariable Long id, Model model) throws IOException {
+        List<String> projectPics = new ArrayList<String>();
+        ProjectData project = getProjectById(id);
+
+        byte[] imageBytes = project.getImage();
+        BufferedImage screen1 = convertBytesToImage(project.getScreen1());
+        String base64Screen1 = ImageUtil.convertImageToBase64(screen1);
+        projectPics.add(base64Screen1);
+
+        BufferedImage screen2 = convertBytesToImage(project.getScreen2());
+        String base64Screen2 = ImageUtil.convertImageToBase64(screen2);
+        projectPics.add(base64Screen2);
+
+        BufferedImage screen3 = convertBytesToImage(project.getScreen3());
+        String base64Screen3 = ImageUtil.convertImageToBase64(screen3);
+        projectPics.add(base64Screen3);
+
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_JPEG);
+        headers.setContentLength(imageBytes.length);
+        BufferedImage image = convertBytesToImage(imageBytes);
+        String base64Image = ImageUtil.convertImageToBase64(image);
+
+        model.addAttribute("image", base64Image);
+        model.addAttribute("images", projectPics);
+        model.addAttribute("project", project);
+        return "project";
+    }
+
+    @GetMapping("/messages")
+    public String showAddMessages(Model model) {
+        model.addAttribute("messages", db.getAllMessages());
+        return "messages";
+    }
 
     private ProjectData getProjectById(long id) {
         return db.getAllImages().stream().filter(p -> p.getId() == id).findFirst().orElse(null);

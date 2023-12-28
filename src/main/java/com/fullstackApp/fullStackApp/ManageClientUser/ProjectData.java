@@ -1,57 +1,56 @@
 package com.fullstackApp.fullStackApp.ManageClientUser;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
-public class ProjectData {
 
+//Project data structure i use it to make sure that I get the correct data
+public class ProjectData {
     int id;
-    private List<byte[]> images;
-    byte[] Image;
+    String base64Image;
     String Name;
     String Type;
-    String GitHub;
-    String TestLink;
-    int Views;
     String Description;
+    String link;
+    String GitHub;
+    int views;
+    UUID ProjectUID;
+    byte[] image;
+    byte[] Screen1;
+    byte[] Screen2;
+    byte[] Screen3;
 
-    UUID uuid;
-
-    List<byte[]> ImageList;
-
-
-    private String base64Image;
-
-    public ProjectData(byte[] image, String name, String type, String gitHub, String testLink, int views, String description) {
-        Image = image;
+    public ProjectData(String name, String type, String description, String link, String gitHub, int views, byte[] image, byte[] screen1, byte[] screen2, byte[] screen3) {
         Name = name;
         Type = type;
-        GitHub = gitHub;
-        TestLink = testLink;
-        Views = views;
         Description = description;
+        this.link = link;
+        GitHub = gitHub;
+        this.views = views;
+        this.image = image;
+        Screen1 = screen1;
+        Screen2 = screen2;
+        Screen3 = screen3;
     }
 
-    public ProjectData() {
-
+    public UUID getProjectUID() {
+        return ProjectUID;
     }
 
-
-
-    public void setId(int id) {
-        this.id = id;
+    public void setProjectUID(UUID projectUID) {
+        ProjectUID = projectUID;
     }
 
     public int getId() {
         return id;
     }
 
-    public byte[] getImage() {
-        return Image;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setImage(byte[] image) {
-        Image = image;
+    public ProjectData() {
     }
 
     public String getName() {
@@ -70,30 +69,6 @@ public class ProjectData {
         Type = type;
     }
 
-    public String getGitHub() {
-        return GitHub;
-    }
-
-    public void setGitHub(String gitHub) {
-        GitHub = gitHub;
-    }
-
-    public String getTestLink() {
-        return TestLink;
-    }
-
-    public void setTestLink(String testLink) {
-        TestLink = testLink;
-    }
-
-    public int getViews() {
-        return Views;
-    }
-
-    public void setViews(int views) {
-        Views = views;
-    }
-
     public String getDescription() {
         return Description;
     }
@@ -102,6 +77,61 @@ public class ProjectData {
         Description = description;
     }
 
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public String getGitHub() {
+        return GitHub;
+    }
+
+    public void setGitHub(String gitHub) {
+        GitHub = gitHub;
+    }
+
+    public int getViews() {
+        return views;
+    }
+
+    public void setViews(int views) {
+        this.views = views;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    public byte[] getScreen1() {
+        return Screen1;
+    }
+
+    public void setScreen1(byte[] screen1) {
+        Screen1 = screen1;
+    }
+
+    public byte[] getScreen2() {
+        return Screen2;
+    }
+
+    public void setScreen2(byte[] screen2) {
+        Screen2 = screen2;
+    }
+
+    public byte[] getScreen3() {
+        return Screen3;
+    }
+
+    public void setScreen3(byte[] screen3) {
+        Screen3 = screen3;
+    }
 
     public String getBase64Image() {
         return base64Image;
@@ -111,55 +141,19 @@ public class ProjectData {
         this.base64Image = base64Image;
     }
 
-    public UUID getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
-    }
-
-    public List<byte[]> getImageList() {
-        return ImageList;
-    }
-
-    public void setImageList(List<byte[]> imageList) {
-        ImageList = imageList;
-    }
-
-//    public ProjectData() {
-//        this.images = new ArrayList<>();
-//    }
-
-    public List<byte[]> getImages() {
-        return images;
-    }
-
-    public void setImages(List<byte[]> images) {
-        this.images = images;
-    }
-
-    public void addImage(byte[] image) {
-        this.images.add(image);
-    }
-
     @Override
     public String toString() {
         return "ProjectData{" +
-                "id=" + id +
-                ", images=" + images +
-                ", Image=" + Image +
-                ", Name='" + Name + '\'' +
+                "Name='" + Name + '\'' +
                 ", Type='" + Type + '\'' +
-                ", GitHub='" + GitHub + '\'' +
-                ", TestLink='" + TestLink + '\'' +
-                ", Views=" + Views +
                 ", Description='" + Description + '\'' +
-                ", uuid=" + uuid +
-                ", ImageList=" + ImageList +
-                ", base64Image='" + base64Image + '\'' +
+                ", link='" + link + '\'' +
+                ", GitHub='" + GitHub + '\'' +
+                ", views=" + views +
+                ", image=" + Arrays.toString(image) +
+                ", Screen1=" + Arrays.toString(Screen1) +
+                ", Screen2=" + Arrays.toString(Screen2) +
+                ", Screen3=" + Arrays.toString(Screen3) +
                 '}';
     }
-
-
 }
