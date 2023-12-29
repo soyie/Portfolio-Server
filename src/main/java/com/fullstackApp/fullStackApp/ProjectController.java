@@ -67,7 +67,7 @@ public class ProjectController {
 
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable int id, Model model) {
-        List<String> projectTypes = Arrays.asList("Web Development", "Mobile Development", "Machine Learning", "Systems Integration", "Command Line Interface");  // Replace with your actual project types
+        List<String> projectTypes = Arrays.asList("Web Development", "Mobile Development", "Machine Learning", "Systems Integration", "Command Line Interface", "Data Science", "Cloud");  // Replace with your actual project types
         model.addAttribute("projectTypes", projectTypes);
         ProjectData project = getProjectById(id);
         model.addAttribute("project", project);
