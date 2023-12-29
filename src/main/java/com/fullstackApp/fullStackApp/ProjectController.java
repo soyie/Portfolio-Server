@@ -31,7 +31,7 @@ public class ProjectController {
     //this is used when adding a new project these are the types of projects I can do
     @GetMapping("/add")
     public String showAddForm(Model model) {
-        List<String> projectTypes = Arrays.asList("Web Development", "Mobile Development", "Machine Learning", "Systems Integration", "Command Line Interface");  // Replace with your actual project types
+        List<String> projectTypes = Arrays.asList("Web Development", "Mobile Development", "Machine Learning", "Systems Integration", "Command Line Interface", "Data Science", "Cloud");  // Replace with your actual project types
         model.addAttribute("projectTypes", projectTypes);
         model.addAttribute("project", new ProjectData());
         return "addProject";
