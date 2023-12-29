@@ -15,6 +15,8 @@
 	<description>Showing How fun It is to create an App with Spring Boot, Flutter, Dart, and React</description>
 	<properties>
 		<java.version>17</java.version>
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>11</maven.compiler.target>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -68,13 +70,13 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
-			<version>2.15.2</version> <!-- Adjust version as needed -->
+			<version>2.15.2</version>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>com.fasterxml.jackson.core</groupId>-->
-<!--			<artifactId>jackson-databind</artifactId>-->
-<!--			<version>2.15.2</version> &lt;!&ndash; Adjust version as needed &ndash;&gt;-->
-<!--		</dependency>-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
     </dependencies>
 
 	<build>
@@ -83,6 +85,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
 		</plugins>
 	</build>
 

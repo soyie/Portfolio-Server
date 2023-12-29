@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${project.name + ' Details'}">Project Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+</head>
+<body>
+
+    <h1 th:text="${project.name + ' Details'}" class="card text-white bg-success mb-3" style="max-width: 100%; text-align: center">Project Details</h1>
+
+    <div id="project-details"  class="d-flex justify-content-center" style="margin-right:12px">
+        <div id="imgs">
+            <img th:if="${image}" th:src="@{'data:image/jpeg;base64,' + ${image}}" alt="Image" width="70%" height="70%"><br>
+            <div style="display: flex; justify-content: space-evenly;">
+                <div th:each="pic : ${images}" style="flex:3; justify-content: space-evenly;">
+                    <img th:src="@{'data:image/jpeg;base64,' + ${pic}}" alt="Image" width="200px" height="200px" style="flex:1;">
+                </div>
+            </div>
+        </div>
+
+        <div th:if="${project != null}" id="info">
+            <p>Name: <apan th:text="${project.name}"></apan></p>
+            <p>Type: <span th:text="${project.type}"></span></p>
+            <p>GitHub: <a th:href="${project.gitHub}" th:text="${project.gitHub}"></a></p>
+            <p>Test Link: <a th:href="${project.Link}" th:text="${project.Link}"></a></p>
+            <p>Views: <span th:text="${project.views}"></span></p>
+            <p>Description:<br> <span th:text="${project.description}"></span></p>
+            <div>
+                <a href="/" class="btn btn-primary">Back</a>
+                <a class="btn btn-primary" th:href="@{/edit/{id}(id=${project.id})}">Update</a>
+                <a class="btn btn-primary" style="margin: 12px;" th:href="@{/delete/{id}(id=${project.id})}">Delete</a>
+            </div>
+        </div>
+
+    </div>
+
+
+</body>
+</html>

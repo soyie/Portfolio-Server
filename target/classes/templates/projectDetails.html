@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Detailed Info</title>
+</head>
+<body>
+<h2>Edit Project</h2>
+<form th:action="@{/edit/{id}(id=${project.id})}" th:object="${project}" method="post" enctype="multipart/form-data">
+
+  <label>Name: <input type="text" th:field="*{name}" /></label><br/>
+  <label>Type: <select id="type" name="type" th:field="*{type}" required>
+    <option th:each="projectType : ${projectTypes}" th:value="${projectType}" th:text="${projectType}" ></option>
+  </select><br></label><br/>
+  <label>GitHub: <input type="text" th:field="*{gitHub}" /></label><br/>
+  <label>Test Link: <input type="text" th:field="*{Link}" /></label><br/>
+  <label>Description: <textarea id="description" name="description" rows="4" cols="50" th:field="*{description}"></textarea><br>
+  </label><br/>
+  <label>Image: <input type="file" name="image" /></label><br/>
+  <input type="submit" value="Save"/>
+</form>
+<a href="/">Back to List</a>
+</body>
+</html>

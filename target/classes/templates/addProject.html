@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Project</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<style>
+    body {
+    padding: 0 30%;
+    background-color: deepskyblue;
+    }
+</style>
+<body>
+<h2>Add Project</h2>
+<form th:action="@{/add}" th:object="${project}" method="post" enctype="multipart/form-data">
+    <label class="form-label">Name: <input class="form-control" type="text" th:field="*{name}" /></label>
+    <label class="form-label">Type:<br/> <select class="custom-select" id="type" name="type" required>
+        <option th:each="projectType : ${projectTypes}" th:value="${projectType}" th:text="${projectType}"></option>
+    </select><br></label><br/>
+    <label class="form-label">GitHub:<br/> <input class="form-control" type="text" th:field="*{gitHub}" /></label>
+    <label class="form-label">Test Link:<br/> <input class="form-control"  type="text" th:field="*{Link}" /></label><br/>
+    <label class="form-label">Description: <textarea class="form-control" id="description" name="description" rows="6" cols="50"></textarea><br>
+    </label><br/>
+    <label class="form-label">Image: <input class="form-control" type="file" name="image" /></label><br/>
+
+    <label class="form-label">Other pictures: <input class="form-control" type="file" name="images" multiple/></label><br/>
+    <input style="padding: 0 30px, margin: 0 23px" type="submit" class="btn btn-primary" value="Add"/><a href="/" class="btn btn-danger" >Back to List</a>
+</form>
+
+</body>
+</html>

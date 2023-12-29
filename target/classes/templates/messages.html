@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Messages</title>
+
+    <style>
+        body {
+            padding: 0 30%;
+            background-color: deepskyblue;
+        }
+        #message{
+            margin: 12px;
+            background-color: skyblue;
+            color: white;
+            padding: 12px;
+            font-size: 24px;
+        }
+        h2{
+            color: snow;
+            background-color: grey;
+            width: 100%;
+        }
+        #datendtime{
+            display: flex;
+            font-size: 12px;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+<h2>Messages</h2>
+<div id="header"></div>
+<div id="body">
+    <div th:each="message : ${messages}" id="message">
+        <div id="datendtime">
+            <p th:text="${message.Date}"></p>
+            <p th:text="${message.Time}"></p>
+        </div>
+        <p th:text="${message.Sender}"></p>
+        <p th:text="${message.SenderEmail}"></p>
+        <p th:text="${message.Message}"></p>
+    </div>
+</div>
+
+</body>
+</html>
