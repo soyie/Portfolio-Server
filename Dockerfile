@@ -1,9 +1,10 @@
 # Use the official OpenJDK 17 base image
-FROM adoptopenjdk/openjdk17:alpine-jre
+FROM eclipse-temurin:17-jdk-alpine
+VOLUME /tmp
 
 # Set the working directory in the container
-WORKDIR /app
 
+ENTRYPOINT ["java","-jar","/app.jar"]
 # Copy the JAR file into the container at /app
 COPY target/your-spring-boot-app.jar /app/fullStackApp-0.0.1-SNAPSHOT.jar
 
