@@ -98,7 +98,7 @@ public class ProjectController {
                               @RequestPart("type") String type,
                               @RequestPart("description") String description,
                               @RequestPart("gitHub") String github,
-                              @RequestPart("testLink") String link) throws IOException {
+                              @RequestPart("Link") String link) throws IOException {
         ProjectData project = getProjectById(id);
         if (project != null) {
             if (!image.isEmpty()) {

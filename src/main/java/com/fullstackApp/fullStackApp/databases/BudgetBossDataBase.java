@@ -3,6 +3,8 @@ package com.fullstackApp.fullStackApp.databases;
 import com.fullstackApp.fullStackApp.ManageClientUser.ProjectData;
 import com.fullstackApp.fullStackApp.ManageClientUser.MessagesList;
 
+import java.io.InputStream;
+import java.nio.file.Path;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -10,10 +12,13 @@ import java.util.*;
 
 public class BudgetBossDataBase {
 
-    public static final String DATABASE_URL = "jdbc:sqlite:myprojects.db";
+    public static final String DATABASE_URL = "jdbc:sqlite::resource:myprojects.db";
+
     public List<byte[]> imagesList = new ArrayList<byte[]>();
     List<ProjectData> images = new ArrayList<>();
     List<MessagesList> messages = new ArrayList<>();
+    InputStream inputStream = BudgetBossDataBase.class.getClassLoader().getResourceAsStream("myprojects.db");
+    Path targetPath = Path.of("myprojects.db");
 
     public static void createTable() {
         String sql = "CREATE TABLE IF NOT EXISTS images ("
@@ -128,8 +133,6 @@ public class BudgetBossDataBase {
             while (rs.next()) {
                 imagesList.clear();
                 ProjectData imageModel = new ProjectData();
-                System.out.println(imagesList.size());
-                System.out.println(images.size());
                 imageModel.setId(Integer.parseInt(rs.getString("id")));
                 imageModel.setImage(rs.getBytes("image"));
                 imageModel.setName(rs.getString("name"));
