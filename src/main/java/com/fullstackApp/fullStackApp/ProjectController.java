@@ -1,6 +1,7 @@
 package com.fullstackApp.fullStackApp;
 
 import com.fullstackApp.fullStackApp.ManageClientUser.ImageUtil;
+import com.fullstackApp.fullStackApp.ManageClientUser.MessagesList;
 import com.fullstackApp.fullStackApp.ManageClientUser.ProjectData;
 import com.fullstackApp.fullStackApp.databases.BudgetBossDataBase;
 import org.springframework.http.HttpHeaders;
@@ -116,9 +117,20 @@ public class ProjectController {
     //delete project
     @GetMapping("/delete/{id}")
     public String deleteProject(@PathVariable int id) {
+        System.out.println("delete project "+id);
         ProjectData project = getProjectById(id);
         if (project != null) {
             BudgetBossDataBase.deleteImage(id);
+        }
+        return "redirect:/";
+    }
+    @GetMapping("/message/delete/{id}")
+    public String deleteMessage(@PathVariable int id) {
+        System.out.println("delete message "+ id);
+//        MessagesList project = getProjectById(id);
+//        System.out.println();
+        if (project != null) {
+            BudgetBossDataBase.deleteMessage(id);
         }
         return "redirect:/";
     }

@@ -1,10 +1,14 @@
 package com.fullstackApp.fullStackApp.ManageClientUser;
 
+import com.fullstackApp.fullStackApp.databases.BudgetBossDataBase;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 //this works for messages
 public class MessagesList {
+    BudgetBossDataBase db = new BudgetBossDataBase();
+    int id;
     String Sender;
     String SenderEmail;
     String Message;
@@ -17,6 +21,14 @@ public class MessagesList {
         Message = message;
         Date = date;
         Time = time;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public MessagesList() {

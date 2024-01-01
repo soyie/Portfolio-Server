@@ -7,7 +7,7 @@
     <style>
         body {
             padding: 0 30%;
-            background-color: deepskyblue;
+            background-color: Snow;
         }
         #message{
             margin: 12px;
@@ -40,6 +40,7 @@
         <p th:text="${message.Sender}"></p>
         <p th:text="${message.SenderEmail}"></p>
         <p th:text="${message.Message}"></p>
+        <a class="btn btn-primary" style="margin: 12px;" th:href="@{/message/delete/{id}(id=${message.id})}">Delete</a>
     </div>
 </div>
 

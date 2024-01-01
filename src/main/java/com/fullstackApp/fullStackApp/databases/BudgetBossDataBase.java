@@ -3,8 +3,11 @@ package com.fullstackApp.fullStackApp.databases;
 import com.fullstackApp.fullStackApp.ManageClientUser.ProjectData;
 import com.fullstackApp.fullStackApp.ManageClientUser.MessagesList;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -12,15 +15,23 @@ import java.util.*;
 
 public class BudgetBossDataBase {
 
-    public static final String DATABASE_URL = "jdbc:sqlite::resource:myprojects.db";
+    public static final String DATABASE_URL = "jdbc:sqlite:myprojects.db";
 
     public List<byte[]> imagesList = new ArrayList<byte[]>();
     List<ProjectData> images = new ArrayList<>();
     List<MessagesList> messages = new ArrayList<>();
     InputStream inputStream = BudgetBossDataBase.class.getClassLoader().getResourceAsStream("myprojects.db");
     Path targetPath = Path.of("myprojects.db");
+    static Path filePath = Paths.get("myprojects.db");
 
-    public static void createTable() {
+    public static void createTable() throws IOException {
+        if (!Files.exists(filePath)) {
+            try {
+                Files.createFile(filePath);
+            } catch (IOException e) {
+                System.err.println("An error occurred while creating the file: " + e.getMessage());
+            }
+        }
         String sql = "CREATE TABLE IF NOT EXISTS images ("
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + "image BLOB,"
@@ -189,6 +200,19 @@ public class BudgetBossDataBase {
         }
     }
 
+    public static void deleteMessage(int id) {
+        String sql = "DELETE FROM messages WHERE id=?;";
+
+        try (Connection conn = DriverManager.getConnection(DATABASE_URL);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public Object getAllMessages() {
         String sql = "SELECT * FROM messages;";
 
@@ -199,7 +223,7 @@ public class BudgetBossDataBase {
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     MessagesList imageModel = new MessagesList();
-
+                    imageModel.setId(Integer.parseInt(rs.getString("id")));
                     imageModel.setSenderEmail(rs.getString("responseMail"));
                     imageModel.setSender(rs.getString("responseName"));
                     imageModel.setMessage(rs.getString("message"));
