@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ProjectsCRUD {
 
-    private static final String PROJECTS_DB_URL = "jdbc:h2:~/projectsdb;AUTO_SERVER=TRUE";
+    private static final String PROJECTS_DB_URL = "jdbc:h2:~/projectsdb;DB_CLOSE_DELAY = -1.;DB_CLOSE_ON_EXIT=FALSE";
     private static final String USER = "sa";
     private static final String PASSWORD = "";
 
