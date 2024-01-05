@@ -1,5 +1,8 @@
 package com.fullstackApp.fullStackApp;
 
+import com.fullstackApp.fullStackApp.ManageClientUser.Message;
+import com.fullstackApp.fullStackApp.databases.MessagesCRUD;
+import com.fullstackApp.fullStackApp.databases.ProjectsCRUD;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -8,14 +11,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.io.IOException;
 
-import static com.fullstackApp.fullStackApp.databases.BudgetBossDataBase.*;
+//import static com.fullstackApp.fullStackApp.databases.BudgetBossDataBase.*;
 
 @SpringBootApplication
 public class FullStackAppApplication {
 
 	public static void main(String[] args) throws IOException {
-		createTable();
-		createDataTable();
+		MessagesCRUD.createTable();
+		ProjectsCRUD.createTable();
 		SpringApplication.run(FullStackAppApplication.class, args);
 	}
 

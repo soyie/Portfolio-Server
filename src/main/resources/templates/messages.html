@@ -11,7 +11,7 @@
         }
         #message{
             margin: 12px;
-            background-color: skyblue;
+            background-color: dodgerblue;
             color: white;
             padding: 12px;
             font-size: 24px;
@@ -30,16 +30,17 @@
 </head>
 <body>
 <h2>Messages</h2>
+<!--id=2, responseMail='u6jt@syrhxgf.gedf', responseName='8ujyhngm 7iyujrjy', message='y6w4ahrsrh sht jus mtdjstnhsu jtxnh yhr', date='2024-01-03', time='20:02:06'-->
 <div id="header"></div>
 <div id="body">
-    <div th:each="message : ${messages}" id="message">
+    <div th:each="message : ${message}" id="message">
         <div id="datendtime">
-            <p th:text="${message.Date}"></p>
-            <p th:text="${message.Time}"></p>
+            <p th:text="${message.date}"></p>
+            <p th:text="${message.time}"></p>
         </div>
-        <p th:text="${message.Sender}"></p>
-        <p th:text="${message.SenderEmail}"></p>
-        <p th:text="${message.Message}"></p>
+        <p th:text="${message.responseMail}"></p>
+        <p th:text="${message.message}"></p>
+        <p>Written by <span  th:text="${message.responseName}"></span></p>
         <a class="btn btn-primary" style="margin: 12px;" th:href="@{/message/delete/{id}(id=${message.id})}">Delete</a>
     </div>
 </div>

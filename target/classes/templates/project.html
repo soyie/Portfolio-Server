@@ -26,8 +26,7 @@
             <p>Name: <apan th:text="${project.name}"></apan></p>
             <p>Type: <span th:text="${project.type}"></span></p>
             <p>GitHub: <a th:href="${project.gitHub}" th:text="${project.gitHub}"></a></p>
-            <p>Test Link: <a th:href="${project.Link}" th:text="${project.Link}"></a></p>
-            <p>Views: <span th:text="${project.views}"></span></p>
+            <p>Test Link: <a th:href="${project.testLink}" th:text="${project.testLink}"></a></p>
             <p>Description:<br> <span th:text="${project.description}"></span></p>
             <div>
                 <a href="/" class="btn btn-primary">Back</a>

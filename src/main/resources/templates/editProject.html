@@ -25,10 +25,9 @@
       <option th:each="projectType : ${projectTypes}" th:value="${projectType}" th:text="${projectType}" ></option>
     </select><br></label><br/>
     <label class="form-label">GitHub: <input class="form-control" type="text" th:field="*{gitHub}" /></label><br/>
-    <label class="form-label">Test Link: <input class="form-control" type="text" th:field="*{Link}" /></label><br/>
+    <label class="form-label">Test Link: <input class="form-control" type="text" th:field="*{testLink}" /></label><br/>
     <label class="form-label">Description: <textarea class="form-control" id="description" name="description" rows="4" cols="50" th:field="*{description}"></textarea><br>
-    </label><br/>
-    <label class="form-label">Image: <input class="form-control" type="file" name="image" /></label><br/>
+    </label>
     <input class="btn btn-primary" type="submit" value="Save" style="padding-right: 21px"/>
     <a href="/" class="btn btn-danger">Back to List</a>
   </form>
