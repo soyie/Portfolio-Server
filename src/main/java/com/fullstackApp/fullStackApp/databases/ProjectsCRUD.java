@@ -9,7 +9,8 @@ import java.util.List;
 
 public class ProjectsCRUD {
 
-    private static final String PROJECTS_DB_URL = "jdbc:h2:~/projectsdb;DB_CLOSE_DELAY = -1.;DB_CLOSE_ON_EXIT=FALSE";
+    private static final String PROJECTS_DB_URL = "jdbc:h2:~/projectsdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE";
+
     private static final String USER = "sa";
     private static final String PASSWORD = "";
 
@@ -66,7 +67,7 @@ public class ProjectsCRUD {
             preparedStatement.setBinaryStream(8, new ByteArrayInputStream(image1), image1.length);
             preparedStatement.setBinaryStream(9, new ByteArrayInputStream(image2), image2.length);
             preparedStatement.setBinaryStream(10, new ByteArrayInputStream(image3), image3.length);
-
+            System.out.println("added successfully");
             int affectedRows = preparedStatement.executeUpdate();
 
             if (affectedRows == 0) {
