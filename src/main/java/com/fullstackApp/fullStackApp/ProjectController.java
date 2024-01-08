@@ -27,17 +27,17 @@ public class ProjectController {
     MessagesCRUD msgDB = new MessagesCRUD();
 //    ProjectData project = new ProjectData();
 
+    @GetMapping("/healthz")
+    public int getHealth(){
+        return 200;
+    }
+
     //getting all the projects from the database to the Server IU for editing, adding and reading and deleting
     @GetMapping("/")
     public String listProjects(Model model) {
         model.addAttribute("projects", projDB.getAllProjects());
         model.addAttribute("messagesNumber", msgDB.getAllMessages().size());
         return "projectList";
-    }
-
-     @GetMapping("/healthz")
-    public int getHealth(){
-        return 200;
     }
 
     //this is used when adding a new project these are the types of projects I can do

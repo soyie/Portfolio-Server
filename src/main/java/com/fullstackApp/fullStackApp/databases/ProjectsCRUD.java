@@ -9,50 +9,32 @@ import java.util.List;
 
 public class ProjectsCRUD {
 
-    private static final String PROJECTS_DB_URL = "jdbc:h2:~/projectsdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE";
+    private static final String DB_HOST = "sql10.freesqldatabase.com";
+    private static final String DB_PORT = "3306";
+    private static final String DB_NAME = "sql10675453";
+    private static final String DB_USER = "sql10675453";
+    private static final String DB_PASSWORD = "IuyAKjadUu";
 
-    private static final String USER = "sa";
-    private static final String PASSWORD = "";
+    private static final String PROJECTS_DB_URL = "jdbc:mysql://" + DB_HOST + ":" + DB_PORT + "/" + DB_NAME;
 
-//    public static void main(String[] args) {
-//        createTable();
-//        int projectId = insertProject("Project1", "Type1", "https://github.com/project1", "https://testlink.com", "Project 1 Description", "ABC123");
-//        Project project = getProject(projectId);
-//        System.out.println("Retrieved Project: " + project);
-//        updateProject(projectId, "Updated Project1", "Type1", "https://github.com/project1", "https://testlink.com", "Updated Description", "ABC123");
-//        List<Project> projects = getAllProjects();
-//        System.out.println("All Projects: " + projects);
-//        deleteProject(projectId);
-//    }
+    // ... rest of the code
 
-    public static void createTable() {
-        try (Connection connection = DriverManager.getConnection(PROJECTS_DB_URL, USER, PASSWORD);
-             Statement statement = connection.createStatement()) {
+    // Use this method to obtain a connection to the MySQL database
+    public static Connection getConnection() {
+        try {
+            // Register the JDBC driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
 
-            String createTableSQL = "CREATE TABLE IF NOT EXISTS projects (" +
-                    "id INTEGER PRIMARY KEY AUTO_INCREMENT," +
-                    "image BLOB," +
-                    "name TEXT," +
-                    "type TEXT," +
-                    "gitHub TEXT," +
-                    "testLink TEXT," +
-                    "views INTEGER," +
-                    "description TEXT," +
-                    "projectId TEXT," +
-                    "image1 BLOB," +
-                    "image2 BLOB," +
-                    "image3 BLOB)";
-            statement.executeUpdate(createTableSQL);
-
-            System.out.println("Table 'projects' created successfully.");
-
-        } catch (SQLException e) {
+            // Open a connection
+            return DriverManager.getConnection(PROJECTS_DB_URL, DB_USER, DB_PASSWORD);
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
+            throw new RuntimeException("Failed to connect to the database.");
         }
     }
 
     public static int insertProject(String name, String type, String gitHub, String testLink, String description, String projectId, byte[] image, byte[] image1, byte[] image2, byte[] image3) {
-        try (Connection connection = DriverManager.getConnection(PROJECTS_DB_URL, USER, PASSWORD);
+        try (Connection connection = DriverManager.getConnection(PROJECTS_DB_URL, DB_USER, DB_PASSWORD);
              PreparedStatement preparedStatement = connection.prepareStatement(
                      "INSERT INTO projects (image, name, type, gitHub, testLink, description, projectId, image1, image2, image3) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                      Statement.RETURN_GENERATED_KEYS)) {
@@ -90,7 +72,7 @@ public class ProjectsCRUD {
 
 
     public Project getProject(Long projectId) {
-        try (Connection connection = DriverManager.getConnection(PROJECTS_DB_URL, USER, PASSWORD);
+        try (Connection connection = DriverManager.getConnection(PROJECTS_DB_URL, DB_USER, DB_PASSWORD);
              PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM projects WHERE id = ?")) {
 
             preparedStatement.setLong(1, projectId);
@@ -111,7 +93,7 @@ public class ProjectsCRUD {
     public static List<Project> getAllProjects() {
         List<Project> projects = new ArrayList<>();
 
-        try (Connection connection = DriverManager.getConnection(PROJECTS_DB_URL, USER, PASSWORD);
+        try (Connection connection = DriverManager.getConnection(PROJECTS_DB_URL, DB_USER, DB_PASSWORD);
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery("SELECT * FROM projects")) {
 
@@ -127,7 +109,7 @@ public class ProjectsCRUD {
     }
 
     public void updateProject(int projectId, String name, String type, String gitHub, String testLink, String description) {
-        try (Connection connection = DriverManager.getConnection(PROJECTS_DB_URL, USER, PASSWORD);
+        try (Connection connection = DriverManager.getConnection(PROJECTS_DB_URL, DB_USER, DB_PASSWORD);
              PreparedStatement preparedStatement = connection.prepareStatement(
                      "UPDATE projects SET name=?, type=?, gitHub=?, testLink=?, description=? WHERE id=?")) {
 
@@ -150,7 +132,7 @@ public class ProjectsCRUD {
     }
 
     public void deleteProject(Long projectId) {
-        try (Connection connection = DriverManager.getConnection(PROJECTS_DB_URL, USER, PASSWORD);
+        try (Connection connection = DriverManager.getConnection(PROJECTS_DB_URL, DB_USER, DB_PASSWORD);
              PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM projects WHERE id=?")) {
 
             preparedStatement.setInt(1, Math.toIntExact(projectId));

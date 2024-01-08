@@ -10,43 +10,32 @@ import java.util.List;
 
 public class MessagesCRUD {
 
-    private static final String MESSAGES_DB_URL = "jdbc:h2:~/messagesdb;AUTO_SERVER=TRUE";
-    private static final String USER = "sa";
-    private static final String PASSWORD = "";
+    private static final String DB_HOST = "sql10.freesqldatabase.com";
+    private static final String DB_PORT = "3306";
+    private static final String DB_NAME = "sql10675453";
+    private static final String DB_USER = "sql10675453";
+    private static final String DB_PASSWORD = "IuyAKjadUu";
 
-//    public static void main(String[] args) {
-//        createTable();
-//        int messageId = insertMessage("response@example.com", "John Doe", "Hello, this is a message.", "2022-01-02", "12:34:56");
-//        Message message = getMessage(messageId);
-//        System.out.println("Retrieved Message: " + message);
-//        updateMessage(messageId, "updated_response@example.com", "Updated John Doe", "Updated message.", "2022-01-03", "23:45:12");
-//        List<Message> messages = getAllMessages();
-//        System.out.println("All Messages: " + messages);
-//        deleteMessage(messageId);
-//    }
+    private static final String MESSAGES_DB_URL = "jdbc:mysql://" + DB_HOST + ":" + DB_PORT + "/" + DB_NAME;
 
-    public static void createTable() {
-        try (Connection connection = DriverManager.getConnection(MESSAGES_DB_URL, USER, PASSWORD);
-             Statement statement = connection.createStatement()) {
+    // ... rest of the code
 
-            String createTableSQL = "CREATE TABLE IF NOT EXISTS messages (" +
-                    "id INTEGER PRIMARY KEY AUTO_INCREMENT," +
-                    "responseMail TEXT," +
-                    "responseName TEXT," +
-                    "message TEXT," +
-                    "Date DATE," +
-                    "Time TIME)";
-            statement.executeUpdate(createTableSQL);
+    // Use this method to obtain a connection to the MySQL database
+    public static Connection getConnection() {
+        try {
+            // Register the JDBC driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
 
-            System.out.println("Table 'messages' created successfully.");
-
-        } catch (SQLException e) {
+            // Open a connection
+            return DriverManager.getConnection(MESSAGES_DB_URL, DB_USER, DB_PASSWORD);
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
+            throw new RuntimeException("Failed to connect to the database.");
         }
     }
 
     public static int insertMessage(String responseMail, String responseName, String message, LocalDate date, LocalTime time) {
-        try (Connection connection = DriverManager.getConnection(MESSAGES_DB_URL, USER, PASSWORD);
+        try (Connection connection = DriverManager.getConnection(MESSAGES_DB_URL, DB_USER, DB_PASSWORD);
              PreparedStatement preparedStatement = connection.prepareStatement(
                      "INSERT INTO messages (responseMail, responseName, message, Date, Time) VALUES (?, ?, ?, ?, ?)",
                      Statement.RETURN_GENERATED_KEYS)) {
@@ -78,7 +67,7 @@ public class MessagesCRUD {
     }
 
     public static Message getMessage(int messageId) {
-        try (Connection connection = DriverManager.getConnection(MESSAGES_DB_URL, USER, PASSWORD);
+        try (Connection connection = DriverManager.getConnection(MESSAGES_DB_URL, DB_USER, DB_PASSWORD);
              PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM messages WHERE id = ?")) {
 
             preparedStatement.setInt(1, messageId);
@@ -99,7 +88,7 @@ public class MessagesCRUD {
     public static List<Message> getAllMessages() {
         List<Message> messages = new ArrayList<>();
 
-        try (Connection connection = DriverManager.getConnection(MESSAGES_DB_URL, USER, PASSWORD);
+        try (Connection connection = DriverManager.getConnection(MESSAGES_DB_URL, DB_USER, DB_PASSWORD);
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery("SELECT * FROM messages")) {
 
@@ -114,31 +103,31 @@ public class MessagesCRUD {
         return messages;
     }
 
-    public static void updateMessage(int messageId, String responseMail, String responseName, String updatedMessage, String date, String time) {
-        try (Connection connection = DriverManager.getConnection(MESSAGES_DB_URL, USER, PASSWORD);
-             PreparedStatement preparedStatement = connection.prepareStatement(
-                     "UPDATE messages SET responseMail=?, responseName=?, message=?, Date=?, Time=? WHERE id=?")) {
-
-            preparedStatement.setString(1, responseMail);
-            preparedStatement.setString(2, responseName);
-            preparedStatement.setString(3, updatedMessage);
-            preparedStatement.setString(4, date);
-            preparedStatement.setString(5, time);
-            preparedStatement.setInt(6, messageId);
-
-            int affectedRows = preparedStatement.executeUpdate();
-
-            if (affectedRows == 0) {
-                throw new SQLException("Updating message failed, no rows affected.");
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+//    public static void updateMessage(int messageId, String responseMail, String responseName, String updatedMessage, String date, String time) {
+//        try (Connection connection = DriverManager.getConnection(MESSAGES_DB_URL, USER, PASSWORD);
+//             PreparedStatement preparedStatement = connection.prepareStatement(
+//                     "UPDATE messages SET responseMail=?, responseName=?, message=?, Date=?, Time=? WHERE id=?")) {
+//
+//            preparedStatement.setString(1, responseMail);
+//            preparedStatement.setString(2, responseName);
+//            preparedStatement.setString(3, updatedMessage);
+//            preparedStatement.setString(4, date);
+//            preparedStatement.setString(5, time);
+//            preparedStatement.setInt(6, messageId);
+//
+//            int affectedRows = preparedStatement.executeUpdate();
+//
+//            if (affectedRows == 0) {
+//                throw new SQLException("Updating message failed, no rows affected.");
+//            }
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     public static void deleteMessage(int messageId) {
-        try (Connection connection = DriverManager.getConnection(MESSAGES_DB_URL, USER, PASSWORD);
+        try (Connection connection = DriverManager.getConnection(MESSAGES_DB_URL, DB_USER, DB_PASSWORD);
              PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM messages WHERE id=?")) {
 
             preparedStatement.setInt(1, messageId);

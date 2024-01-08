@@ -31,11 +31,6 @@ public class ClientController {
         return projDB.getAllProjects();
     }
 
-    @GetMapping("/healthz")
-    public int getHealth(){
-        return 200;
-    }
-
     @PostMapping("/SendMessage")
     public String[] greetingFromClient(@RequestBody String user) throws SQLException {
         JSONObject jsonObject = new JSONObject(user);

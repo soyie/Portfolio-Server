@@ -17,8 +17,8 @@ import java.io.IOException;
 public class FullStackAppApplication {
 
 	public static void main(String[] args) throws IOException {
-		MessagesCRUD.createTable();
-		ProjectsCRUD.createTable();
+		MessagesCRUD.getConnection();
+		ProjectsCRUD.getConnection();
 		SpringApplication.run(FullStackAppApplication.class, args);
 	}
 
