@@ -35,6 +35,11 @@ public class ProjectController {
         return "projectList";
     }
 
+     @GetMapping("/healthz")
+    public int getHealth(){
+        return 200;
+    }
+
     //this is used when adding a new project these are the types of projects I can do
     @GetMapping("/add")
     public String showAddForm(Model model) {
